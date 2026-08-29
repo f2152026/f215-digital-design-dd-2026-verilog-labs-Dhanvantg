@@ -28,10 +28,23 @@ module FA_Gate(
 );
   wire ps, pc1, pc2;
 
-  xor (ps,  a,   b);
-  and (pc1, a,   b);
-  xor (sum, cin, ps);
-  and (pc2, cin, ps);
-  or  (cout, pc1, pc2);
+  // xor #(2) (ps,  a,   b);
+  // and #(2) (pc1, a,   b);
+  // xor #(2) (sum, cin, ps);
+  // and #(2) (pc2, cin, ps);
+  // or  #(2) (cout, pc1, pc2);
+
+  
+   xor #(2,3) (ps,  a,   b);
+   and #(2,3) (pc1, a,   b);
+   xor #(2,3) (sum, cin, ps);
+   and #(2,3) (pc2, cin, ps);
+   or  #(2,3) (cout, pc1, pc2);
+
+  
+  // FA_Gate FA0 (.a(a[0]), .b(b[0]), .cin(cin), .sum(sum[0]), .cout(c1));
+  // FA_Gate FA1 (.a(a[1]), .b(b[1]), .cin(c1),  .sum(sum[1]), .cout(c2));
+  // FA_Gate FA2 (.a(a[2]), .b(b[2]), .cin(c2),  .sum(sum[2]), .cout(c3));
+  // FA_Gate FA3 (.a(a[3]), .b(b[3]), .cin(c3),  .sum(sum[3]), .cout(cout));
 
 endmodule

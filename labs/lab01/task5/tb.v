@@ -5,6 +5,10 @@
 // via the vcd plusarg -- you don't need to choose or specify one.
 
 module tb;
+  // This also leaves enough time if a Task 4 ripple implementation is
+  // copied here for the optional side-by-side comparison.
+  localparam integer SETTLE_TIME = 500;
+
   reg  [63:0] t_a, t_b;
   reg         t_cin;
   wire [63:0] t_sum;
@@ -29,10 +33,10 @@ module tb;
 
   initial begin
     t_a = 64'd0; t_b = 64'd0; t_cin = 0;
-    #30 t_a = 64'hFFFFFFFF_FFFFFFFF; t_b = 64'd1; t_cin = 0;   // worst-case ripple
-    #30 t_a = 64'h0F0F0F0F_0F0F0F0F; t_b = 64'hF0F0F0F0_F0F0F0F0; t_cin = 1;
-    #30 t_a = 64'd123456789; t_b = 64'd987654321; t_cin = 0;
-    #30 $finish;
+    #SETTLE_TIME t_a = 64'hFFFFFFFF_FFFFFFFF; t_b = 64'd1; t_cin = 0;   // worst-case ripple
+    #SETTLE_TIME t_a = 64'h0F0F0F0F_0F0F0F0F; t_b = 64'hF0F0F0F0_F0F0F0F0; t_cin = 1;
+    #SETTLE_TIME t_a = 64'd123456789; t_b = 64'd987654321; t_cin = 0;
+    #SETTLE_TIME $finish;
   end
 
   initial
